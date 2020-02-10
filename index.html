@@ -19,7 +19,31 @@
 		/>
 	</head>
 	<body>
-		<main id="app-container">
+		<main class="pt-5 mt-5" id="app-container">
+			<div class="container">
+				<div class="col-12 offset-lg-2 col-lg-8" id="alert">
+					
+				</div>
+				<form class='col offset-lg-2 col-lg-8 py-3 d-flex shadow-lg rounded-sm'>
+					<input 
+						class="form-control border-warning rounded-0 col-lg-6 sh" 
+						id="location" 
+						type="text" 
+						name="location"
+						placeholder="Enter the name of the location" />
+						<select class='col-3 border-warning form-control rounded-0'>
+							<option value="c" selected="selected">Celsius</option>
+							<option value="f">Fahrenheit</option>
+						</select>
+					<input 
+						class='btn btn-warning btn-block border-warning rounded-0'
+						type='submit' 
+						value='find' />
+				</form>
+				<div class="col offset-lg-2 col-lg-8" id="weather-info">
+				</div>
+				<!-- <img src='http://openweathermap.org/img/wn/10d@2x.png' alt='' /> -->
+			</div>
 		</main>
 		<script
 			src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

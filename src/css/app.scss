@@ -1,1 +1,11 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/three-dots/dist/three-dots.css";
+
+.btn,
+.form-control
+{
+	font-size: .875rem;
+	outline:0px !important;
+	-webkit-appearance:none;
+	box-shadow: none !important;
+}
