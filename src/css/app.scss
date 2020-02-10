@@ -9,3 +9,11 @@
 	-webkit-appearance:none;
 	box-shadow: none !important;
 }
+
+dd, dt {
+	text-align: center;
+}
+
+.location, dt {
+	font-family: "Roboto Condensed", sans-serif;
+}

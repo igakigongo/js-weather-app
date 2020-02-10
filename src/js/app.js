@@ -1,5 +1,6 @@
 import '../css/app.scss';
-import getCurrentWeather from './api-client';
+import { convertTemperature, getCurrentWeather } from './api-client';
+
 
 /**
  * We have to disable arrow functions with prototype modifications
@@ -38,8 +39,46 @@ Node.prototype.insertAlert = function (message, type = 'error') {
 };
 
 // eslint-disable-next-line func-names
-Node.prototype.showForecast = function (weatherResponse) {
-  console.log(weatherResponse);
+Node.prototype.showForecast = function (weather, location, tempFormat) {
+  const element = this;
+  const {
+    humidity, icon, main, pressure, temp,
+  } = weather;
+  element.innerHTML = `
+    <div class='border-0 card mt-5'>
+      <h1 class='mt-5 text-center text-warning location'>
+        ${location}
+      </h1>
+      <p class='mx-auto'>
+        <img src='http://openweathermap.org/img/wn/${icon}@2x.png' alt='' class='d-inline-block' width='auto' />
+      </p>
+      <div class='row'>
+        <div class='col'>
+        <dl>
+          <dt>Description</dt>
+          <dd>${main}</dd>
+        </dl>
+        </div>
+        <div class='col'>
+          <dl>
+            <dt>Humidity</dt>
+            <dd>${humidity}</dd>
+          </dl>
+        </div>
+        <div class='col'>
+          <dl>
+            <dt>Pressure</dt>
+            <dd>${pressure}</dd>
+          </dl>
+        </div>
+        <div class='col'>
+          <dl>
+            <dt>Temperature</dt>
+            <dd>${convertTemperature(+temp, tempFormat).toFixed(2)} &deg; ${tempFormat.toUpperCase()}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>`;
 };
 
 // eslint-disable-next-line func-names
@@ -60,38 +99,28 @@ Node.prototype.showLoader = function () {
   return element;
 };
 
-const app = (() => {
+(() => {
   const rootElement = document.querySelector('#app-container');
-  const alert = rootElement.querySelector('#alert');
-  const form = rootElement.querySelector('form');
-  const display = rootElement.querySelector('#weather-info');
-
-  const render = () => {};
+  const [alert, form, display] = ['#alert', 'form', '#weather-info']
+    .map(selector => rootElement.querySelector(selector));
 
   // add event handlers to elements
   form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     display.removeAllChildren();
-    const element = form.querySelector('#location');
-    const location = element.value;
 
-    if (!location) {
-      alert.insertAlert('please enter a location').clearAfter(2);
-      return;
-    }
+    const [location, tempFormat] = ['#location', 'select']
+      .map((selector) => form.querySelector(selector).value);
 
     try {
       display.showLoader();
       const info = await getCurrentWeather(location.trim());
-      display.showForecast(info);
+      display.showForecast(info, location, tempFormat);
     } catch ({ message }) {
-      alert.insertAlert(message);
+      alert.insertAlert(message).clearAfter(2);
+      display.clearAfter(0);
+    } finally {
+      form.querySelector('#location').value = '';
     }
   });
-
-  return {
-    render,
-  };
 })();
-
-document.addEventListener('DOMContentLoaded', app.render());
