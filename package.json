@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "production": "npx webpack --mode=production",
+    "build": "npx webpack --mode=production",
     "dev": "npx webpack --watch --mode=development"
   },
   "keywords": [],
