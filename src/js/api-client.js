@@ -25,20 +25,3 @@ const getCurrentWeather = async (location, units = 'metric') => {
 };
 
 export default getCurrentWeather;
-
-// export const convertTemperature = (tempInKelvin, tempFormat) => {
-//   switch (tempFormat) {
-//     case 'c':
-//     {
-//       return tempInKelvin - 273.15;
-//     }
-//     case 'f':
-//     {
-//       return (tempInKelvin - 273.15) * (9 / 5) + 32;
-//     }
-//     default:
-//     {
-//       return tempInKelvin;
-//     }
-//   }
-// };
