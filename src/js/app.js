@@ -1,31 +1,22 @@
 import '../css/app.scss';
-import { convertTemperature, getCurrentWeather } from './api-client';
-
-
-/**
- * We have to disable arrow functions with prototype modifications
- * because we need the this object inside the functions.
- */
+import getCurrentWeather from './api-client';
 
 /**
  * Clears a node after n seconds
  */
-// eslint-disable-next-line func-names
-Node.prototype.clearAfter = function (seconds) {
+Node.prototype.clearAfter = function clearAfter(seconds) {
   const element = this;
   setTimeout(() => element.removeAllChildren(), seconds * 1000);
   return element;
 };
 
-// eslint-disable-next-line func-names
-Node.prototype.removeAllChildren = function () {
+Node.prototype.removeAllChildren = function removeAllChildren() {
   const element = this;
   while (element.firstChild) element.removeChild(element.firstChild);
   return this;
 };
 
-// eslint-disable-next-line func-names
-Node.prototype.insertAlert = function (message, type = 'error') {
+Node.prototype.insertAlert = function insertAlert(message, type = 'error') {
   const element = this;
   const cssClass = type === 'error' ? 'alert-warning' : 'alert-success';
   element.removeAllChildren()
@@ -38,8 +29,7 @@ Node.prototype.insertAlert = function (message, type = 'error') {
   return element;
 };
 
-// eslint-disable-next-line func-names
-Node.prototype.showForecast = function (weather, location, tempFormat) {
+Node.prototype.showForecast = function showForecast(weather, location, tempFormat) {
   const element = this;
   const {
     humidity, icon, main, pressure, temp,
@@ -74,15 +64,14 @@ Node.prototype.showForecast = function (weather, location, tempFormat) {
         <div class='col'>
           <dl>
             <dt>Temperature</dt>
-            <dd>${convertTemperature(+temp, tempFormat).toFixed(2)} &deg; ${tempFormat.toUpperCase()}</dd>
+            <dd>${(+temp).toFixed(2)} &deg; ${tempFormat.toUpperCase()}</dd>
           </dl>
         </div>
       </div>
     </div>`;
 };
 
-// eslint-disable-next-line func-names
-Node.prototype.showLoader = function () {
+Node.prototype.showLoader = function showLoader() {
   const element = this;
   element.removeAllChildren();
   const card = document.createElement('div');
@@ -109,13 +98,13 @@ Node.prototype.showLoader = function () {
     evt.preventDefault();
     display.removeAllChildren();
 
-    const [location, tempFormat] = ['#location', 'select']
+    const [location, units] = ['#location', 'select']
       .map((selector) => form.querySelector(selector).value);
 
     try {
       display.showLoader();
-      const info = await getCurrentWeather(location.trim());
-      display.showForecast(info, location, tempFormat);
+      const info = await getCurrentWeather(location.trim(), units);
+      display.showForecast(info, location, units === 'metric' ? 'c' : 'f');
     } catch ({ message }) {
       alert.insertAlert(message).clearAfter(2);
       display.clearAfter(0);
