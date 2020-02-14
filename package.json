@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "production": "npx webpack --mode=production",
-    "dev": "npx webpack --watch --mode=development"
+    "build": "webpack --mode=production",
+    "dev": "webpack --watch --mode=development"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "three-dots": "^0.1.2"
   }
 }

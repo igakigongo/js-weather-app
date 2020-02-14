@@ -4,22 +4,37 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Todo App</title>
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Sacramento&display=swap&subset=latin-ext"
-		/>
+		<title>Weather App</title>
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap"
 		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
 	</head>
 	<body>
-		<main id="app-container">
+		<main class="pt-5 mt-5" id="app-container">
+			<div class="container">
+				<div class="col-12 offset-lg-2 col-lg-8" id="alert">
+					
+				</div>
+				<form class='col offset-lg-2 col-lg-8 py-3 d-flex shadow-lg rounded-sm'>
+					<input 
+						class="form-control border-warning rounded-0 col-lg-6 sh" 
+						id="location" 
+						type="text" 
+						name="location"
+						placeholder="Enter the name of the location" />
+						<select class='col-3 border-warning form-control rounded-0'>
+							<option value="metric" selected="selected">Celsius</option>
+							<option value="imperial">Fahrenheit</option>
+						</select>
+					<input 
+						class='btn btn-warning btn-block border-warning rounded-0'
+						type='submit' 
+						value='find' />
+				</form>
+				<div class="col offset-lg-2 col-lg-8" id="weather-info">
+				</div>
+			</div>
 		</main>
 		<script
 			src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
